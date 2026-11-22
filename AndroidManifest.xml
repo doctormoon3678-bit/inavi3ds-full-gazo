@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    android:compileSdkVersion="35"
+    android:compileSdkVersionCodename="15"
+    package="com.railty.cerfandroid"
+    platformBuildVersionCode="35"
+    platformBuildVersionName="15"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 앱이 네트워크 소켓을 만들고 맞춤 네트워크 프로토콜을 사용할 수 있도록 허용합니다. 브라우저 및 기타 앱이 데이터를 인터넷에 전송하는 수단을 제공하므로, 이 권한이 데이터를 인터넷에 전송하는 데 필요하지 않습니다. -->
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+    <!-- 앱이 어떤 네트워크가 존재하며 연결되었는지 등의 네트워크 연결에 대한 정보를 볼 수 있도록 허용합니다. -->
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 앱이 기기의 휴대전화 기능에 접근할 수 있도록 허용합니다. 이 권한을 사용하면 앱이 전화번호 및 기기의 ID, 활성 통화인지 여부, 통화가 연결된 원격 번호 등을 확인할 수 있습니다. -->
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 사용자의 조작 없이도 앱에서 전화번호로 전화를 걸 수 있도록 허용합니다. 이 권한을 사용하면 예상치 못한 요금이나 통화가 발생할 수 있습니다. 앱에서 비상 전화를 걸 수는 없습니다. 악성 앱에서 내 확인 없이 전화를 걸거나 수신 전화가 자동으로 다른 번호로 착신 전환되도록 이동통신사 코드를 입력하여 요금이 부과될 수 있습니다. -->
+    <uses-permission
+        android:name="android.permission.CALL_PHONE" />
+    <!-- 앱이 SMS 메시지를 보낼 수 있도록 허용합니다. 이 경우 예상치 못한 통화 요금이 부과될 수 있습니다. 이 경우 악성 앱이 사용자의 확인 없이 메시지를 전송해 요금이 부과될 수 있습니다. -->
+    <uses-permission
+        android:name="android.permission.SEND_SMS" />
+    <!-- 앱이 SMS 메시지를 수신하고 처리할 수 있도록 허용합니다. 앱이 사용자에게 표시하지 않고 기기로 전송된 메시지를 확인 또는 삭제할 수도 있습니다. -->
+    <uses-permission
+        android:name="android.permission.RECEIVE_SMS" />
+    <!-- 휴대전화에 저장된 연락처에 관한 데이터를 앱이 읽도록 허용합니다. 또한 앱은 휴대전화에서 연락처가 생성된 계정에도 액세스할 수 있습니다. 여기에는 설치한 앱에서 생성한 계정이 포함될 수 있습니다. 이 권한을 사용하면 앱이 연락처 데이터를 저장할 수 있으며, 악성 앱이 사용자가 모르게 연락처 데이터를 공유할 수도 있습니다. -->
+    <uses-permission
+        android:name="android.permission.READ_CONTACTS" />
+    <!-- 앱에서 수신 전화를 받도록 허용합니다. -->
+    <uses-permission
+        android:name="android.permission.ANSWER_PHONE_CALLS" />
+    <!-- 이 앱은 통화 기록을 읽을 수 있습니다. -->
+    <uses-permission
+        android:name="android.permission.READ_CALL_LOG" />
+    <!-- 이 앱은 다른 앱이나 화면의 다른 부분 위에 표시될 수 있습니다. 이로 인해 일반적인 앱 사용이 방해받을 수 있으며 다른 앱이 표시되는 방식이 변경될 수 있습니다. -->
+    <uses-permission
+        android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 이 앱은 사용 중일 때 위치 서비스로부터 대략적인 위치 정보를 받을 수 있습니다. 앱에서 위치 정보를 받으려면 기기의 위치 서비스가 사용 설정되어 있어야 합니다. -->
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 이 앱은 사용 중일 때 위치 서비스로부터 정확한 위치 정보를 받을 수 있습니다. 앱에서 위치 정보를 받으려면 기기의 위치 서비스가 사용 설정되어 있어야 합니다. 이로 인해 배터리 사용량이 증가할 수 있습니다. -->
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <!-- 앱이 진동을 제어할 수 있도록 허용합니다. -->
+    <uses-permission
+        android:name="android.permission.VIBRATE" />
+    <!-- 앱을 사용하는 동안 앱에서 카메라를 사용하여 사진을 촬영하고 동영상을 녹화할 수 있습니다. -->
+    <uses-permission
+        android:name="android.permission.CAMERA" />
+    <application
+        android:theme="@style/AppTheme"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:resizeableActivity="true"
+        android:roundIcon="@mipmap/ic_launcher">
+        <profileable
+            android:shell="true" />
+        <activity
+            android:name=".LauncherActivity"
+            android:exported="true"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:process=":emu"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:configChanges="keyboardHidden|orientation|screenLayout|screenSize" />
+        <activity
+            android:theme="@android:style/Theme.NoDisplay"
+            android:name=".ShortcutLaunchActivity"
+            android:exported="true"
+            android:excludeFromRecents="true" />
+        <service
+            android:name=".CerfNotificationListener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true"
+            android:process=":emu">
+            <intent-filter>
+                <action
+                    android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".CerfInCallService"
+            android:permission="android.permission.BIND_INCALL_SERVICE"
+            android:exported="true"
+            android:process=":emu">
+            <meta-data
+                android:name="android.telecom.IN_CALL_SERVICE_UI"
+                android:value="true" />
+            <intent-filter>
+                <action
+                    android:name="android.telecom.InCallService" />
+            </intent-filter>
+        </service>
+        <activity
+            android:name=".CallFallbackActivity"
+            android:exported="false"
+            android:process=":emu"
+            android:excludeFromRecents="true" />
+        <activity
+            android:name=".DialActivity"
+            android:exported="true">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.DIAL" />
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.DIAL" />
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="tel" />
+            </intent-filter>
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.VIEW" />
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+                <category
+                    android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="tel" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

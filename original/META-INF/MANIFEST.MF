@@ -1,0 +1,71 @@
+Manifest-Version: 1.0
+
+Name: AndroidManifest.xml
+SHA-256-Digest: oK/ETb5Hi/AayQ6twg5LfzrLUn2Y6VbZth7IPjvuyI8=
+
+Name: assets/NK.bin
+SHA-256-Digest: ZLcBnbbgVpw5PhC+MWhwW8Lbptx6DC3U/sqw+oHIqcw=
+
+Name: assets/cerf_guest.dll
+SHA-256-Digest: CdKARRuxeyE0nX6OEoozl6x89RJ13rXe6JsVW0XAyMI=
+
+Name: assets/cerf_guest_stub.dll
+SHA-256-Digest: 61bg3bJmqjOBS3cUKsexkCAIROlWO2D/+t8Jgghkw4k=
+
+Name: assets/extra_dlls/MFC90U.DLL
+SHA-256-Digest: XjSZl5LMHiSbxKsIrNBTx1XyM9ujVO0oqJbWoxtdu+o=
+
+Name: assets/extra_dlls/mfcce400.dll
+SHA-256-Digest: NIkBzJTGcK5QiZ6DUgRjN2maqFLLa3hG4asZrTDZ/Bc=
+
+Name: assets/extra_dlls/olece400.dll
+SHA-256-Digest: 8FK4Gl9p0oCT9sAJMb6c7qRslsdRf/P0bxWhQru0XKE=
+
+Name: assets/libGLES_CM.dll
+SHA-256-Digest: ELQSbjvKFyq9R4vl5NDCpELqDafOu4dKZwt9GCrGRJM=
+
+Name: classes.dex
+SHA-256-Digest: Q1831+NVNohgFilJnw9mUH7kpWaKVafUY2fggYKSEZY=
+
+Name: lib/arm64-v8a/libandroid-support.so
+SHA-256-Digest: c5z4KVEdcdr9bGf9u3Dz8MYEhkLqLhlneQ7pYf3hRDA=
+
+Name: lib/arm64-v8a/libcerf_android_frontend.so
+SHA-256-Digest: DXL6KQXbBR5m7ZxTXNW7lN1Wiep/9A8y3aYOgDVA/nQ=
+
+Name: lib/arm64-v8a/libglib-2.0.so.0
+SHA-256-Digest: h4bldTsOwShgkyLrS1/VHsGHoKVO0xgdw/LTmvprNLs=
+
+Name: lib/arm64-v8a/libiconv.so
+SHA-256-Digest: qlGnWmlEngL3cSY1FIsoAWfcvalDPx0W3lyTFDKwWwE=
+
+Name: lib/arm64-v8a/libpcre2-8.so
+SHA-256-Digest: UserQm9PJ09jDQXvBMhSFT9Lt+eK4XjOYcsX4lhWm98=
+
+Name: lib/arm64-v8a/libslirp.so
+SHA-256-Digest: dahq8AUAaCR6Yfrbbqu0MTE3RuvxsGs4cVL6N0qflcM=
+
+Name: res/drawable-nodpi-v4/ic_launcher_foreground.png
+SHA-256-Digest: iNNQr/rEBn+FX9Dwldq9+oRrkReHXx862DS32Pe7Jgw=
+
+Name: res/mipmap-anydpi-v26/ic_launcher.xml
+SHA-256-Digest: VIVrYjflDvHnTfdzZlj4am8fVvu1pczQl3t3dbEK4aQ=
+
+Name: res/mipmap-hdpi-v4/ic_launcher.png
+SHA-256-Digest: TDACT8C+k/VANbKEiODIuJCxzj8MQsZ+N2cPklKwnRY=
+
+Name: res/mipmap-mdpi-v4/ic_launcher.png
+SHA-256-Digest: FwUfWVVvCbFLM8SyT0I7n43Q17vw9RAdnCvqmM0haKY=
+
+Name: res/mipmap-xhdpi-v4/ic_launcher.png
+SHA-256-Digest: y6QY/+pwaJR+RxoydlWhjd3BK7vyLW1SKpnzOhRy0vo=
+
+Name: res/mipmap-xxhdpi-v4/ic_launcher.png
+SHA-256-Digest: y6nVd9/GpJWfLEimVKsuLJPXS4/+4aG2AfEoQB671X4=
+
+Name: res/mipmap-xxxhdpi-v4/ic_launcher.png
+SHA-256-Digest: kFy5Dfy+9lIQ8oLQ8qW4MlFlWobzCh5vjk1pTmtsf9Y=
+
+Name: resources.arsc
+SHA-256-Digest: 4FAdpZ6PN+spdY1ltrauUKWfns0Vb8XvJ8tY2lym8mo=
+
