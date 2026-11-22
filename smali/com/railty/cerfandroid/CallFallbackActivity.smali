@@ -25,12 +25,7 @@
     .locals 6
 
     .line 57
-    invoke-static {}, Lcom/railty/cerfandroid/CerfInCallService;->Current()Landroid/telecom/Call;
-
-    move-result-object v0
-
-    .line 58
-    invoke-static {v0}, Lcom/railty/cerfandroid/CerfInCallService;->StateOf(Landroid/telecom/Call;)I
+    invoke-static {}, Lcom/railty/cerfandroid/CerfInCallService;->CurrentState()I
 
     move-result v1
 
@@ -45,7 +40,7 @@
 
     .line 63
     :cond_0
-    invoke-static {v0}, Lcom/railty/cerfandroid/CerfInCallService;->NumberOf(Landroid/telecom/Call;)Ljava/lang/String;
+    invoke-static {}, Lcom/railty/cerfandroid/CerfInCallService;->CurrentNumber()Ljava/lang/String;
 
     move-result-object v0
 
@@ -136,22 +131,21 @@
     invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
 
     .line 22
-    sget p1, Landroid/os/Build$VERSION;->SDK_INT:I
+    invoke-virtual {p0}, Lcom/railty/cerfandroid/CallFallbackActivity;->getWindow()Landroid/view/Window;
 
-    const/16 v0, 0x1b
+    move-result-object p1
+
+    const/high16 v0, 0x80000    # FLAG_SHOW_WHEN_LOCKED
+
+    const/high16 v1, 0x200000   # FLAG_TURN_SCREEN_ON
+
+    or-int/2addr v0, v1
+
+    invoke-virtual {p1, v0}, Landroid/view/Window;->addFlags(I)V
 
     const/4 v1, 0x1
 
-    if-lt p1, v0, :cond_0
-
-    .line 23
-    invoke-virtual {p0, v1}, Lcom/railty/cerfandroid/CallFallbackActivity;->setShowWhenLocked(Z)V
-
-    .line 24
-    invoke-virtual {p0, v1}, Lcom/railty/cerfandroid/CallFallbackActivity;->setTurnScreenOn(Z)V
-
     .line 26
-    :cond_0
     new-instance p1, Landroid/widget/LinearLayout;
 
     invoke-direct {p1, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V

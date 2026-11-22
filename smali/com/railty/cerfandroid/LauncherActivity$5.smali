@@ -44,60 +44,8 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 2
+    .locals 0
 
-    .line 259
-    sget p1, Landroid/os/Build$VERSION;->SDK_INT:I
-
-    const/16 v0, 0x1d
-
-    if-ge p1, v0, :cond_0
-
-    return-void
-
-    .line 260
-    :cond_0
-    iget-object p1, p0, Lcom/railty/cerfandroid/LauncherActivity$5;->this$0:Lcom/railty/cerfandroid/LauncherActivity;
-
-    .line 261
-    const-string v0, "role"
-
-    invoke-virtual {p1, v0}, Lcom/railty/cerfandroid/LauncherActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object p1
-
-    check-cast p1, Landroid/app/role/RoleManager;
-
-    .line 262
-    if-eqz p1, :cond_2
-
-    const-string v0, "android.app.role.DIALER"
-
-    invoke-virtual {p1, v0}, Landroid/app/role/RoleManager;->isRoleAvailable(Ljava/lang/String;)Z
-
-    move-result v1
-
-    if-nez v1, :cond_1
-
-    goto :goto_0
-
-    .line 263
-    :cond_1
-    iget-object v1, p0, Lcom/railty/cerfandroid/LauncherActivity$5;->this$0:Lcom/railty/cerfandroid/LauncherActivity;
-
-    invoke-virtual {p1, v0}, Landroid/app/role/RoleManager;->createRequestRoleIntent(Ljava/lang/String;)Landroid/content/Intent;
-
-    move-result-object p1
-
-    const/16 v0, 0x1c85
-
-    invoke-virtual {v1, p1, v0}, Lcom/railty/cerfandroid/LauncherActivity;->startActivityForResult(Landroid/content/Intent;I)V
-
-    .line 265
-    return-void
-
-    .line 262
-    :cond_2
-    :goto_0
+    # RoleManager is API 29+ — not available on API 19
     return-void
 .end method

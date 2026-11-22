@@ -2,10 +2,6 @@
 .super Ljava/lang/Object;
 .source "MainActivity.java"
 
-# interfaces
-.implements Landroid/view/PixelCopy$OnPixelCopyFinishedListener;
-
-
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
     value = Lcom/railty/cerfandroid/MainActivity;->SaveScreenshot()V

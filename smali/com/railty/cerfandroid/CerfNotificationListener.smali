@@ -176,19 +176,9 @@
     :try_start_1
     sget-object v1, Lcom/railty/cerfandroid/CerfNotificationListener;->instance:Lcom/railty/cerfandroid/CerfNotificationListener;
 
-    sget-object v2, Lcom/railty/cerfandroid/CerfNotificationListener;->unreadKeys:Ljava/util/HashSet;
-
     const/4 v3, 0x0
 
-    new-array v4, v3, [Ljava/lang/String;
-
-    invoke-virtual {v2, v4}, Ljava/util/HashSet;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
-
-    move-result-object v2
-
-    check-cast v2, [Ljava/lang/String;
-
-    invoke-virtual {v1, v2}, Lcom/railty/cerfandroid/CerfNotificationListener;->getActiveNotifications([Ljava/lang/String;)[Landroid/service/notification/StatusBarNotification;
+    invoke-virtual {v1}, Lcom/railty/cerfandroid/CerfNotificationListener;->getActiveNotifications()[Landroid/service/notification/StatusBarNotification;
 
     move-result-object v1
     :try_end_1
@@ -263,7 +253,7 @@
 
     move-result-object v6
 
-    invoke-virtual {v4}, Landroid/service/notification/StatusBarNotification;->getKey()Ljava/lang/String;
+    invoke-static {v4}, Lcom/railty/cerfandroid/CerfNotificationListener;->KeyOf(Landroid/service/notification/StatusBarNotification;)Ljava/lang/String;
 
     move-result-object v4
 
@@ -410,58 +400,7 @@
 .method private static NumberOf(Landroid/os/Bundle;Ljava/lang/CharSequence;)Ljava/lang/String;
     .locals 1
 
-    .line 133
-    nop
-
-    .line 134
-    const-string v0, "android.people.list"
-
-    invoke-virtual {p0, v0}, Landroid/os/Bundle;->getParcelableArrayList(Ljava/lang/String;)Ljava/util/ArrayList;
-
-    move-result-object p0
-
-    .line 135
-    if-eqz p0, :cond_1
-
-    .line 136
-    invoke-virtual {p0}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
-
-    move-result-object p0
-
-    :goto_0
-    invoke-interface {p0}, Ljava/util/Iterator;->hasNext()Z
-
-    move-result v0
-
-    if-eqz v0, :cond_1
-
-    invoke-interface {p0}, Ljava/util/Iterator;->next()Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/app/Person;
-
-    .line 137
-    invoke-virtual {v0}, Landroid/app/Person;->getUri()Ljava/lang/String;
-
-    move-result-object v0
-
-    invoke-static {v0}, Lcom/railty/cerfandroid/CerfNotificationListener;->TelOf(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v0
-
-    .line 138
-    if-eqz v0, :cond_0
-
-    return-object v0
-
-    .line 139
-    :cond_0
-    goto :goto_0
-
-    .line 141
-    :cond_1
-    if-eqz p1, :cond_2
+    if-eqz p1, :cond_1
 
     invoke-virtual {p1}, Ljava/lang/Object;->toString()Ljava/lang/String;
 
@@ -473,7 +412,7 @@
 
     move-result p0
 
-    if-eqz p0, :cond_2
+    if-eqz p0, :cond_0
 
     invoke-virtual {p1}, Ljava/lang/Object;->toString()Ljava/lang/String;
 
@@ -481,8 +420,8 @@
 
     return-object p0
 
-    .line 142
-    :cond_2
+    :cond_0
+    :cond_1
     const/4 p0, 0x0
 
     return-object p0
@@ -766,139 +705,90 @@
 .end method
 
 .method private static ReadAction(Landroid/app/Notification;)Landroid/app/Notification$Action;
-    .locals 8
+    .locals 5
 
     .line 65
     const/4 v0, 0x0
 
-    if-eqz p0, :cond_8
+    if-eqz p0, :cond_5
 
     iget-object v1, p0, Landroid/app/Notification;->actions:[Landroid/app/Notification$Action;
 
     if-nez v1, :cond_0
 
-    goto :goto_5
-
-    .line 66
-    :cond_0
-    iget-object v1, p0, Landroid/app/Notification;->actions:[Landroid/app/Notification$Action;
-
-    array-length v2, v1
-
-    const/4 v3, 0x0
-
-    move v4, v3
-
-    :goto_0
-    if-ge v4, v2, :cond_2
-
-    aget-object v5, v1, v4
-
-    .line 67
-    invoke-virtual {v5}, Landroid/app/Notification$Action;->getSemanticAction()I
-
-    move-result v6
-
-    const/4 v7, 0x2
-
-    if-ne v6, v7, :cond_1
-
-    return-object v5
-
-    .line 66
-    :cond_1
-    add-int/lit8 v4, v4, 0x1
-
-    goto :goto_0
+    goto :goto_2
 
     .line 69
-    :cond_2
+    :cond_0
     iget-object p0, p0, Landroid/app/Notification;->actions:[Landroid/app/Notification$Action;
 
     array-length v1, p0
 
-    :goto_1
-    if-ge v3, v1, :cond_7
+    const/4 v2, 0x0
 
-    aget-object v2, p0, v3
+    :goto_0
+    if-ge v2, v1, :cond_4
 
-    .line 70
-    invoke-virtual {v2}, Landroid/app/Notification$Action;->getRemoteInputs()[Landroid/app/RemoteInput;
-
-    move-result-object v4
-
-    if-eqz v4, :cond_3
-
-    invoke-virtual {v2}, Landroid/app/Notification$Action;->getRemoteInputs()[Landroid/app/RemoteInput;
-
-    move-result-object v4
-
-    array-length v4, v4
-
-    if-lez v4, :cond_3
-
-    goto :goto_3
+    aget-object v3, p0, v2
 
     .line 71
-    :cond_3
-    iget-object v4, v2, Landroid/app/Notification$Action;->title:Ljava/lang/CharSequence;
+    iget-object v4, v3, Landroid/app/Notification$Action;->title:Ljava/lang/CharSequence;
 
-    if-nez v4, :cond_4
+    if-nez v4, :cond_1
 
     const-string v4, ""
 
-    goto :goto_2
+    goto :goto_1
 
-    :cond_4
-    iget-object v4, v2, Landroid/app/Notification$Action;->title:Ljava/lang/CharSequence;
+    :cond_1
+    iget-object v4, v3, Landroid/app/Notification$Action;->title:Ljava/lang/CharSequence;
 
     invoke-virtual {v4}, Ljava/lang/Object;->toString()Ljava/lang/String;
 
     move-result-object v4
 
     .line 72
-    :goto_2
-    const-string v5, "\uc77d\uc74c"
+    :goto_1
+    const-string p1, "\uc77d\uc74c"
 
-    invoke-virtual {v4, v5}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    invoke-virtual {v4, p1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
-    move-result v5
+    move-result p1
 
-    if-nez v5, :cond_6
+    if-nez p1, :cond_3
 
     invoke-virtual {v4}, Ljava/lang/String;->toLowerCase()Ljava/lang/String;
 
     move-result-object v4
 
-    const-string v5, "read"
+    const-string p1, "read"
 
-    invoke-virtual {v4, v5}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    invoke-virtual {v4, p1}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v4
 
-    if-eqz v4, :cond_5
+    if-eqz v4, :cond_2
 
-    goto :goto_4
+    goto :goto_3
 
     .line 69
-    :cond_5
-    :goto_3
-    add-int/lit8 v3, v3, 0x1
+    :cond_2
+    add-int/lit8 v2, v2, 0x1
 
-    goto :goto_1
+    goto :goto_0
 
     .line 72
-    :cond_6
-    :goto_4
-    return-object v2
+    :cond_3
+    :goto_3
+    return-object v3
 
     .line 74
-    :cond_7
+    :cond_4
     return-object v0
 
     .line 65
-    :cond_8
-    :goto_5
+    :cond_5
+    :goto_2
     return-object v0
 .end method
 
@@ -929,6 +819,56 @@
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
     throw p0
+.end method
+
+.method private static KeyOf(Landroid/service/notification/StatusBarNotification;)Ljava/lang/String;
+    .locals 3
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {p0}, Landroid/service/notification/StatusBarNotification;->getPackageName()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v1, "|"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {p0}, Landroid/service/notification/StatusBarNotification;->getId()I
+
+    move-result v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    const-string v1, "|"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {p0}, Landroid/service/notification/StatusBarNotification;->getTag()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
 .end method
 
 .method private static TelOf(Ljava/lang/String;)Ljava/lang/String;
@@ -1033,10 +973,10 @@
 .end method
 
 .method public onNotificationPosted(Landroid/service/notification/StatusBarNotification;)V
-    .locals 10
+    .locals 7
 
     .line 106
-    if-eqz p1, :cond_b
+    if-eqz p1, :cond_6
 
     const-string v0, "com.samsung.android.messaging"
 
@@ -1050,7 +990,7 @@
 
     if-nez v0, :cond_0
 
-    goto/16 :goto_4
+    goto :goto_1
 
     .line 107
     :cond_0
@@ -1059,7 +999,7 @@
     move-result-object v0
 
     .line 108
-    if-eqz v0, :cond_a
+    if-eqz v0, :cond_5
 
     iget v1, v0, Landroid/app/Notification;->flags:I
 
@@ -1067,7 +1007,7 @@
 
     if-eqz v1, :cond_1
 
-    goto/16 :goto_3
+    goto :goto_0
 
     .line 109
     :cond_1
@@ -1091,190 +1031,39 @@
 
     move-result-object v3
 
-    .line 114
-    const-string v4, "android.messages"
-
-    invoke-virtual {v1, v4}, Landroid/os/Bundle;->getParcelableArray(Ljava/lang/String;)[Landroid/os/Parcelable;
-
-    move-result-object v4
-
-    .line 115
-    const-string v5, "|"
-
-    if-eqz v4, :cond_8
-
-    array-length v6, v4
-
-    if-lez v6, :cond_8
-
-    .line 117
-    invoke-static {v4}, Landroid/app/Notification$MessagingStyle$Message;->getMessagesFromBundleArray([Landroid/os/Parcelable;)Ljava/util/List;
-
-    move-result-object v0
-
-    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
-
-    move-result-object v0
-
-    :goto_0
-    invoke-interface {v0}, Ljava/util/Iterator;->hasNext()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_7
-
-    invoke-interface {v0}, Ljava/util/Iterator;->next()Ljava/lang/Object;
-
-    move-result-object v1
-
-    check-cast v1, Landroid/app/Notification$MessagingStyle$Message;
-
-    .line 118
-    invoke-virtual {v1}, Landroid/app/Notification$MessagingStyle$Message;->getSenderPerson()Landroid/app/Person;
-
-    move-result-object v2
-
-    .line 119
-    if-nez v2, :cond_3
-
-    invoke-virtual {v1}, Landroid/app/Notification$MessagingStyle$Message;->getSender()Ljava/lang/CharSequence;
+    .line 127
+    .line 128
+    invoke-static {p1}, Lcom/railty/cerfandroid/CerfNotificationListener;->KeyOf(Landroid/service/notification/StatusBarNotification;)Ljava/lang/String;
 
     move-result-object v4
 
-    if-nez v4, :cond_3
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    goto :goto_0
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 120
-    :cond_3
-    if-eqz v2, :cond_4
-
-    invoke-virtual {v2}, Landroid/app/Person;->getUri()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-static {v4}, Lcom/railty/cerfandroid/CerfNotificationListener;->TelOf(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v4
-
-    goto :goto_1
-
-    :cond_4
-    const/4 v4, 0x0
-
-    .line 121
-    :goto_1
-    if-nez v4, :cond_5
-
-    move-object v4, v3
-
-    .line 122
-    :cond_5
-    if-eqz v2, :cond_6
-
-    invoke-virtual {v2}, Landroid/app/Person;->getName()Ljava/lang/CharSequence;
-
-    move-result-object v2
-
-    goto :goto_2
-
-    :cond_6
-    invoke-virtual {v1}, Landroid/app/Notification$MessagingStyle$Message;->getSender()Ljava/lang/CharSequence;
-
-    move-result-object v2
-
-    .line 123
-    :goto_2
-    invoke-virtual {p1}, Landroid/service/notification/StatusBarNotification;->getKey()Ljava/lang/String;
+    invoke-static {p1}, Lcom/railty/cerfandroid/CerfNotificationListener;->KeyOf(Landroid/service/notification/StatusBarNotification;)Ljava/lang/String;
 
     move-result-object v6
 
-    new-instance v7, Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+    move-result-object v5
 
-    invoke-virtual {p1}, Landroid/service/notification/StatusBarNotification;->getKey()Ljava/lang/String;
+    const-string v6, "|"
 
-    move-result-object v8
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v5
 
-    move-result-object v7
+    iget-wide v6, v0, Landroid/app/Notification;->when:J
 
-    invoke-virtual {v7, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v6, v7}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
-    move-result-object v7
+    move-result-object v5
 
-    invoke-virtual {v1}, Landroid/app/Notification$MessagingStyle$Message;->getTimestamp()J
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-wide v8
-
-    invoke-virtual {v7, v8, v9}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-virtual {v1}, Landroid/app/Notification$MessagingStyle$Message;->getText()Ljava/lang/CharSequence;
-
-    move-result-object v1
-
-    invoke-static {v6, v7, v4, v2, v1}, Lcom/railty/cerfandroid/CerfNotificationListener;->Offer(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/CharSequence;Ljava/lang/CharSequence;)V
-
-    .line 124
-    goto :goto_0
-
-    .line 125
-    :cond_7
-    return-void
-
-    .line 127
-    :cond_8
-    const-string v4, "msg"
-
-    iget-object v6, v0, Landroid/app/Notification;->category:Ljava/lang/String;
-
-    invoke-virtual {v4, v6}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v4
-
-    if-nez v4, :cond_9
-
-    return-void
-
-    .line 128
-    :cond_9
-    invoke-virtual {p1}, Landroid/service/notification/StatusBarNotification;->getKey()Ljava/lang/String;
-
-    move-result-object v4
-
-    new-instance v6, Ljava/lang/StringBuilder;
-
-    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
-
-    invoke-virtual {p1}, Landroid/service/notification/StatusBarNotification;->getKey()Ljava/lang/String;
-
-    move-result-object p1
-
-    invoke-virtual {v6, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object p1
-
-    invoke-virtual {p1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object p1
-
-    iget-wide v5, v0, Landroid/app/Notification;->when:J
-
-    invoke-virtual {p1, v5, v6}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object p1
-
-    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object p1
+    move-result-object v5
 
     .line 129
     const-string v0, "android.text"
@@ -1284,18 +1073,18 @@
     move-result-object v0
 
     .line 128
-    invoke-static {v4, p1, v3, v2, v0}, Lcom/railty/cerfandroid/CerfNotificationListener;->Offer(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/CharSequence;Ljava/lang/CharSequence;)V
+    invoke-static {v4, v5, v3, v2, v0}, Lcom/railty/cerfandroid/CerfNotificationListener;->Offer(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/CharSequence;Ljava/lang/CharSequence;)V
 
     .line 130
     return-void
 
     .line 108
-    :cond_a
-    :goto_3
+    :cond_5
+    :goto_0
     return-void
 
     .line 106
-    :cond_b
-    :goto_4
+    :cond_6
+    :goto_1
     return-void
 .end method
