@@ -2435,6 +2435,20 @@
 
     .line 1140
     :cond_0
+    sget p1, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v0, 0x1e
+
+    if-lt p1, v0, :cond_1
+
+    invoke-static {}, Landroid/os/Environment;->isExternalStorageManager()Z
+
+    move-result p1
+
+    return p1
+
+    .line 1141
+    :cond_1
     return v1
 .end method
 
@@ -5274,14 +5288,42 @@
 
     aget-object v5, v1, v4
 
+    .line 1598
+    invoke-virtual {p0, v5}, Lcom/railty/cerfandroid/LauncherActivity;->checkSelfPermission(Ljava/lang/String;)I
+
+    move-result v6
+
+    if-eqz v6, :cond_0
+
+    invoke-virtual {v2, v5}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
     .line 1597
     :cond_0
     add-int/lit8 v4, v4, 0x1
 
     goto :goto_0
 
-    .line 1601
+    .line 1600
     :cond_1
+    invoke-virtual {v2}, Ljava/util/ArrayList;->isEmpty()Z
+
+    move-result v0
+
+    if-nez v0, :cond_2
+
+    new-array v0, v3, [Ljava/lang/String;
+
+    invoke-virtual {v2, v0}, Ljava/util/ArrayList;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, [Ljava/lang/String;
+
+    const/16 v1, 0x5045
+
+    invoke-virtual {p0, v0, v1}, Lcom/railty/cerfandroid/LauncherActivity;->requestPermissions([Ljava/lang/String;I)V
+
+    .line 1601
     :cond_2
     return-void
 .end method
@@ -5308,25 +5350,11 @@
     nop
 
     .line 619
-    new-instance v7, Landroid/graphics/Point;
+    invoke-virtual {v0}, Landroid/view/Display;->getSupportedModes()[Landroid/view/Display$Mode;
 
-    invoke-direct {v7}, Landroid/graphics/Point;-><init>()V
+    move-result-object v0
 
-    invoke-virtual {v0, v7}, Landroid/view/Display;->getSize(Landroid/graphics/Point;)V
-
-    iget v8, v7, Landroid/graphics/Point;->x:I
-
-    iget v9, v7, Landroid/graphics/Point;->y:I
-
-    invoke-static {v8, v9}, Ljava/lang/Math;->max(II)I
-
-    move-result v3
-
-    invoke-static {v8, v9}, Ljava/lang/Math;->min(II)I
-
-    move-result v4
-
-    goto :cond_1
+    array-length v1, v0
 
     const/4 v2, 0x0
 
@@ -5853,8 +5881,39 @@
 .method private ShowCreateCfImageDialog()V
     .locals 11
 
-    .line 666
+    .line 660
+    sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v1, 0x1e
+
     const/4 v2, 0x1
+
+    if-lt v0, v1, :cond_0
+
+    invoke-static {}, Landroid/os/Environment;->isExternalStorageManager()Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    .line 661
+    invoke-direct {p0}, Lcom/railty/cerfandroid/LauncherActivity;->RequestAllFilesAccess()V
+
+    .line 662
+    const-string v0, "\uc800\uc7a5\uc18c \uc811\uadfc\uc744 \ud5c8\uc6a9\ud55c \ub4a4 CF \uc774\ubbf8\uc9c0 \ub9cc\ub4e4\uae30\ub97c \ub2e4\uc2dc \ub20c\ub7ec\uc8fc\uc138\uc694"
+
+    invoke-static {p0, v0, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+
+    move-result-object v0
+
+    .line 663
+    invoke-virtual {v0}, Landroid/widget/Toast;->show()V
+
+    .line 664
+    return-void
+
+    .line 666
+    :cond_0
     new-instance v0, Landroid/widget/LinearLayout;
 
     invoke-direct {v0, p0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
@@ -9451,6 +9510,13 @@
     invoke-direct {v3, v12, v12}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
 
     invoke-virtual {v2, v1, v3}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 462
+    new-instance v3, Lcom/railty/cerfandroid/LauncherActivity$19;
+
+    invoke-direct {v3, v0, v1}, Lcom/railty/cerfandroid/LauncherActivity$19;-><init>(Lcom/railty/cerfandroid/LauncherActivity;Landroid/widget/ScrollView;)V
+
+    invoke-virtual {v2, v3}, Landroid/widget/FrameLayout;->setOnApplyWindowInsetsListener(Landroid/view/View$OnApplyWindowInsetsListener;)V
 
     .line 491
     invoke-virtual {v0, v2}, Lcom/railty/cerfandroid/LauncherActivity;->setContentView(Landroid/view/View;)V

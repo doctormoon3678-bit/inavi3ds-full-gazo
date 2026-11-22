@@ -30,6 +30,8 @@
 
 .field private final smsReceiver:Landroid/content/BroadcastReceiver;
 
+.field private final telecom:Landroid/telecom/TelecomManager;
+
 .field private final telephony:Landroid/telephony/TelephonyManager;
 
 
@@ -87,6 +89,17 @@
 
     iput-object p2, p0, Lcom/railty/cerfandroid/CellBridge;->telephony:Landroid/telephony/TelephonyManager;
 
+    .line 37
+    const-string p2, "telecom"
+
+    invoke-virtual {p1, p2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Landroid/telecom/TelecomManager;
+
+    iput-object p1, p0, Lcom/railty/cerfandroid/CellBridge;->telecom:Landroid/telecom/TelecomManager;
+
     .line 38
     return-void
 .end method
@@ -94,7 +107,22 @@
 .method private LoadContacts()V
     .locals 2
 
+    .line 68
+    iget-object v0, p0, Lcom/railty/cerfandroid/CellBridge;->context:Landroid/content/Context;
+
+    const-string v1, "android.permission.READ_CONTACTS"
+
+    invoke-virtual {v0, v1}, Landroid/content/Context;->checkSelfPermission(Ljava/lang/String;)I
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    .line 69
+    return-void
+
     .line 70
+    :cond_0
     new-instance v0, Ljava/lang/Thread;
 
     new-instance v1, Lcom/railty/cerfandroid/CellBridge$3;
@@ -174,11 +202,9 @@
     if-eqz v1, :cond_0
 
     .line 191
-    new-instance v0, Landroid/content/Intent;
+    iget-object v0, p0, Lcom/railty/cerfandroid/CellBridge;->telecom:Landroid/telecom/TelecomManager;
 
-    const-string v1, "android.intent.action.CALL"
-
-    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+    const-string v1, "tel"
 
     const/4 v3, 0x5
 
@@ -186,33 +212,13 @@
 
     move-result-object v3
 
-    new-instance v4, Ljava/lang/StringBuilder;
+    const/4 v4, 0x0
 
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-static {v1, v3, v4}, Landroid/net/Uri;->fromParts(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/net/Uri;
 
-    const-string v1, "tel:"
+    move-result-object v1
 
-    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-static {v4}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v4
-
-    invoke-virtual {v0, v4}, Landroid/content/Intent;->setData(Landroid/net/Uri;)Landroid/content/Intent;
-
-    iget-object v4, p0, Lcom/railty/cerfandroid/CellBridge;->context:Landroid/content/Context;
-
-    invoke-virtual {v4, v0}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
+    invoke-virtual {v0, v1, v4}, Landroid/telecom/TelecomManager;->placeCall(Landroid/net/Uri;Landroid/os/Bundle;)V
 
     .line 192
     invoke-virtual {p0}, Lcom/railty/cerfandroid/CellBridge;->IsDefaultDialer()Z
@@ -238,6 +244,15 @@
     .line 194
     invoke-static {}, Lcom/railty/cerfandroid/CerfInCallService;->Answer()Z
 
+    move-result v0
+
+    if-nez v0, :cond_8
+
+    .line 195
+    iget-object v0, p0, Lcom/railty/cerfandroid/CellBridge;->telecom:Landroid/telecom/TelecomManager;
+
+    invoke-virtual {v0}, Landroid/telecom/TelecomManager;->acceptRingingCall()V
+
     .line 196
     invoke-direct {p0}, Lcom/railty/cerfandroid/CellBridge;->ReturnToEmulator()V
 
@@ -255,6 +270,14 @@
 
     .line 199
     invoke-static {}, Lcom/railty/cerfandroid/CerfInCallService;->Hangup()Z
+
+    move-result v0
+
+    if-nez v0, :cond_8
+
+    iget-object v0, p0, Lcom/railty/cerfandroid/CellBridge;->telecom:Landroid/telecom/TelecomManager;
+
+    invoke-virtual {v0}, Landroid/telecom/TelecomManager;->endCall()Z
 
     goto :goto_0
 
@@ -429,9 +452,17 @@
     move-result-object p1
 
     .line 221
-    invoke-static {}, Landroid/telephony/SmsManager;->getDefault()Landroid/telephony/SmsManager;
+    iget-object v0, p0, Lcom/railty/cerfandroid/CellBridge;->context:Landroid/content/Context;
 
-    move-result-object v2
+    const-class v1, Landroid/telephony/SmsManager;
+
+    invoke-virtual {v0, v1}, Landroid/content/Context;->getSystemService(Ljava/lang/Class;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    move-object v2, v0
+
+    check-cast v2, Landroid/telephony/SmsManager;
 
     .line 222
     if-nez v2, :cond_1
@@ -522,10 +553,39 @@
 
 # virtual methods
 .method IsDefaultDialer()Z
-    .locals 1
+    .locals 2
 
+    .line 171
+    iget-object v0, p0, Lcom/railty/cerfandroid/CellBridge;->telecom:Landroid/telecom/TelecomManager;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/railty/cerfandroid/CellBridge;->context:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getPackageName()Ljava/lang/String;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/railty/cerfandroid/CellBridge;->telecom:Landroid/telecom/TelecomManager;
+
+    invoke-virtual {v1}, Landroid/telecom/TelecomManager;->getDefaultDialerPackage()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const/4 v0, 0x1
+
+    goto :goto_0
+
+    :cond_0
     const/4 v0, 0x0
 
+    :goto_0
     return v0
 .end method
 
@@ -643,7 +703,11 @@
 
     invoke-direct {v3, v4}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
 
-    invoke-virtual {v1, v2, v3}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
+    const-string v4, "android.permission.BROADCAST_SMS"
+
+    const/4 v5, 0x0
+
+    invoke-virtual {v1, v2, v3, v4, v5}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;Ljava/lang/String;Landroid/os/Handler;)Landroid/content/Intent;
 
     .line 120
     iget-object v1, p0, Lcom/railty/cerfandroid/CellBridge;->sink:Lcom/railty/cerfandroid/CellBridge$Native;

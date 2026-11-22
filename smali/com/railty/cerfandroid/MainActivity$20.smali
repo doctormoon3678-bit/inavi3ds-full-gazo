@@ -109,8 +109,14 @@
 
     if-nez v1, :cond_2
 
-    # API 19: permission always granted at install time
-    const/4 v1, 0x0
+    iget-object v1, p0, Lcom/railty/cerfandroid/MainActivity$20;->this$0:Lcom/railty/cerfandroid/MainActivity;
+
+    .line 1020
+    const-string v2, "android.permission.CAMERA"
+
+    invoke-virtual {v1, v2}, Lcom/railty/cerfandroid/MainActivity;->checkSelfPermission(Ljava/lang/String;)I
+
+    move-result v1
 
     if-nez v1, :cond_2
 

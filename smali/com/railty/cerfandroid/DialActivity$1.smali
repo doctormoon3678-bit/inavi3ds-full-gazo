@@ -84,41 +84,27 @@
 
     .line 33
     :cond_0
+    iget-object v0, p0, Lcom/railty/cerfandroid/DialActivity$1;->this$0:Lcom/railty/cerfandroid/DialActivity;
+
+    const-string v1, "telecom"
+
+    invoke-virtual {v0, v1}, Lcom/railty/cerfandroid/DialActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/telecom/TelecomManager;
+
     .line 35
     :try_start_0
-    new-instance v0, Landroid/content/Intent;
+    const-string v1, "tel"
 
-    const-string v1, "android.intent.action.CALL"
+    const/4 v2, 0x0
 
-    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-
-    new-instance v1, Ljava/lang/StringBuilder;
-
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v2, "tel:"
-
-    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v1}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {v1, p1, v2}, Landroid/net/Uri;->fromParts(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object p1
 
-    invoke-virtual {v0, p1}, Landroid/content/Intent;->setData(Landroid/net/Uri;)Landroid/content/Intent;
-
-    iget-object p1, p0, Lcom/railty/cerfandroid/DialActivity$1;->this$0:Lcom/railty/cerfandroid/DialActivity;
-
-    invoke-virtual {p1, v0}, Lcom/railty/cerfandroid/DialActivity;->startActivity(Landroid/content/Intent;)V
+    invoke-virtual {v0, p1, v2}, Landroid/telecom/TelecomManager;->placeCall(Landroid/net/Uri;Landroid/os/Bundle;)V
     :try_end_0
     .catch Ljava/lang/SecurityException; {:try_start_0 .. :try_end_0} :catch_0
 

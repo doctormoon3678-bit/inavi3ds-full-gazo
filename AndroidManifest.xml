@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    android:compileSdkVersion="19"
-    android:compileSdkVersionCodename="4.4.4"
+    android:compileSdkVersion="28"
+    android:compileSdkVersionCodename="9"
     package="com.railty.cerfandroid"
-    platformBuildVersionCode="19"
-    platformBuildVersionName="4.4.4"
+    platformBuildVersionCode="28"
+    platformBuildVersionName="9"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 앱이 네트워크 소켓을 만들고 맞춤 네트워크 프로토콜을 사용할 수 있도록 허용합니다. 브라우저 및 기타 앱이 데이터를 인터넷에 전송하는 수단을 제공하므로, 이 권한이 데이터를 인터넷에 전송하는 데 필요하지 않습니다. -->
     <uses-permission
@@ -27,7 +27,9 @@
     <!-- 휴대전화에 저장된 연락처에 관한 데이터를 앱이 읽도록 허용합니다. 또한 앱은 휴대전화에서 연락처가 생성된 계정에도 액세스할 수 있습니다. 여기에는 설치한 앱에서 생성한 계정이 포함될 수 있습니다. 이 권한을 사용하면 앱이 연락처 데이터를 저장할 수 있으며, 악성 앱이 사용자가 모르게 연락처 데이터를 공유할 수도 있습니다. -->
     <uses-permission
         android:name="android.permission.READ_CONTACTS" />
-    <!-- ANSWER_PHONE_CALLS removed: API 26+ only, use ITelephony on 4.4 -->
+    <!-- 앱에서 수신 전화를 받도록 허용합니다. -->
+    <uses-permission
+        android:name="android.permission.ANSWER_PHONE_CALLS" />
     <!-- 이 앱은 통화 기록을 읽을 수 있습니다. -->
     <uses-permission
         android:name="android.permission.READ_CALL_LOG" />
@@ -58,8 +60,8 @@
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:configChanges="keyboardHidden|orientation|screenSize"
+        android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher">
-        <!-- profileable removed: API 29+ only -->
         <activity
             android:name=".LauncherActivity"
             android:exported="true"
@@ -96,16 +98,17 @@
         </service>
         <service
             android:name=".CerfInCallService"
-            android:exported="false"
-            android:process=":emu" />
-        <receiver
-            android:name=".CerfPhoneStateReceiver"
+            android:permission="android.permission.BIND_INCALL_SERVICE"
             android:exported="true"
             android:process=":emu">
+            <meta-data
+                android:name="android.telecom.IN_CALL_SERVICE_UI"
+                android:value="true" />
             <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
+                <action
+                    android:name="android.telecom.InCallService" />
             </intent-filter>
-        </receiver>
+        </service>
         <activity
             android:name=".CallFallbackActivity"
             android:exported="false"

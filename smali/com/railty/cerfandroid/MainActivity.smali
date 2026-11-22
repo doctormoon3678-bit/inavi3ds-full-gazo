@@ -1797,13 +1797,15 @@
     move-result-object v0
 
     .line 742
+    iget-object v1, p0, Lcom/railty/cerfandroid/MainActivity;->emulatorView:Lcom/railty/cerfandroid/MainActivity$DeviceEmulatorView;
+
     new-instance v2, Lcom/railty/cerfandroid/MainActivity$16;
 
     invoke-direct {v2, p0, v0}, Lcom/railty/cerfandroid/MainActivity$16;-><init>(Lcom/railty/cerfandroid/MainActivity;Landroid/graphics/Bitmap;)V
 
-    const/4 v3, 0x0
+    iget-object v3, p0, Lcom/railty/cerfandroid/MainActivity;->mainHandler:Landroid/os/Handler;
 
-    invoke-virtual {v2, v3}, Lcom/railty/cerfandroid/MainActivity$16;->onPixelCopyFinished(I)V
+    invoke-static {v1, v0, v2, v3}, Landroid/view/PixelCopy;->request(Landroid/view/SurfaceView;Landroid/graphics/Bitmap;Landroid/view/PixelCopy$OnPixelCopyFinishedListener;Landroid/os/Handler;)V
 
     .line 762
     return-void
@@ -4387,8 +4389,52 @@
 
     invoke-static {p1}, Lcom/railty/cerfandroid/CerfNotificationListener;->SetSink(Lcom/railty/cerfandroid/CerfNotificationListener$Sink;)V
 
-    .line 332
+    .line 321
+    const-string p1, "android.permission.SEND_SMS"
+
+    invoke-virtual {p0, p1}, Lcom/railty/cerfandroid/MainActivity;->checkSelfPermission(Ljava/lang/String;)I
+
+    move-result v0
+
+    const-string v1, "android.permission.READ_CONTACTS"
+
+    const-string v2, "android.permission.RECEIVE_SMS"
+
+    if-nez v0, :cond_d
+
+    .line 323
+    invoke-virtual {p0, v2}, Lcom/railty/cerfandroid/MainActivity;->checkSelfPermission(Ljava/lang/String;)I
+
+    move-result v0
+
+    if-nez v0, :cond_d
+
+    .line 325
+    invoke-virtual {p0, v1}, Lcom/railty/cerfandroid/MainActivity;->checkSelfPermission(Ljava/lang/String;)I
+
+    move-result v0
+
+    if-eqz v0, :cond_e
+
+    .line 327
     :cond_d
+    const/4 v0, 0x3
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    aput-object p1, v0, v13
+
+    aput-object v2, v0, v4
+
+    const/4 p1, 0x2
+
+    aput-object v1, v0, p1
+
+    const/16 p1, 0x534d
+
+    invoke-virtual {p0, v0, p1}, Lcom/railty/cerfandroid/MainActivity;->requestPermissions([Ljava/lang/String;I)V
+
+    .line 332
     :cond_e
     invoke-static {p0}, Lcom/railty/cerfandroid/DeviceSettings;->Load(Landroid/content/Context;)Lcom/railty/cerfandroid/DeviceSettings;
 
